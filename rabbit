@@ -1,0 +1,62 @@
+PImage rabbit;
+PImage tree;
+void setup(){
+  size(800,400);
+  rabbit = loadImage("https://cdn.pixabay.com/photo/2021/02/21/16/53/bunny-6037010_960_720.png");
+  tree = loadImage("https://cdn.pixabay.com/photo/2014/12/22/00/07/tree-576847_960_720.png");
+}
+
+void grass(int x, int y){
+  fill(0,255,0);
+  beginShape();
+  vertex(0+x,height);
+  vertex(20+x, height-50-y);
+  
+  vertex(20+x, height-50-y);
+  vertex(40+x,height-35);
+  
+  vertex(40+x,height-35);
+  vertex(60+x,height-80-y);
+  
+  vertex(60+x,height-80-y);
+  vertex(80+x,height-45);
+  
+  vertex(80+x, height-45);
+  vertex(90+x, height-50-y);
+
+  vertex(90+x, height-50-y);
+  vertex(110+x, height-40);
+  
+  vertex(110+x, height-40);
+  vertex(130+x, height-60-y);
+  
+  vertex(130+x, height-60-y);
+  vertex(150+x, height);
+  endShape(CLOSE);
+}
+
+void rabbit(int x){
+  pushMatrix();
+  image(rabbit,40+x,320-frameCount,80,80);
+  textSize(15);
+  fill(255,0,0);
+  text("answer",55+x,390-frameCount);
+  popMatrix();
+}
+
+void draw(){
+    background(#3B5DFF);
+    
+    image(tree, -30,0, 400,400);
+    
+    for(int i=0; i<4; i++){
+      rabbit(i*200);
+    }
+    
+  for(int i=0; i<=width; i+=140){
+    grass(i,65);
+  }
+  
+  
+  
+}
