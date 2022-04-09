@@ -1,62 +1,100 @@
 PImage rabbit;
 PImage tree;
-void setup(){
-  size(800,400);
+void setup() {
+  size(800, 400);
   rabbit = loadImage("https://cdn.pixabay.com/photo/2021/02/21/16/53/bunny-6037010_960_720.png");
   tree = loadImage("https://cdn.pixabay.com/photo/2014/12/22/00/07/tree-576847_960_720.png");
 }
 
-void grass(int x, int y){
-  fill(0,255,0);
+void grass(int x, int y) {
+  fill(0, 255, 0);
   beginShape();
-  vertex(0+x,height);
+  vertex(0+x, height);
   vertex(20+x, height-50-y);
-  
+
   vertex(20+x, height-50-y);
-  vertex(40+x,height-35);
-  
-  vertex(40+x,height-35);
-  vertex(60+x,height-80-y);
-  
-  vertex(60+x,height-80-y);
-  vertex(80+x,height-45);
-  
+  vertex(40+x, height-35);
+
+  vertex(40+x, height-35);
+  vertex(60+x, height-80-y);
+
+  vertex(60+x, height-80-y);
+  vertex(80+x, height-45);
+
   vertex(80+x, height-45);
   vertex(90+x, height-50-y);
 
   vertex(90+x, height-50-y);
   vertex(110+x, height-40);
-  
+
   vertex(110+x, height-40);
   vertex(130+x, height-60-y);
-  
+
   vertex(130+x, height-60-y);
   vertex(150+x, height);
   endShape(CLOSE);
 }
 
-void rabbit(int x){
-  pushMatrix();
-  image(rabbit,40+x,320-frameCount,80,80);
-  textSize(15);
-  fill(255,0,0);
-  text("answer",55+x,390-frameCount);
-  popMatrix();
+float beginX = 20.0;  // Initial x-coordinate
+float beginY = 400.0;  // Initial y-coordinate
+float endX = 570.0;   // Final x-coordinate
+float endY = 20.0;   // Final y-coordinate
+float distX;          // X-axis distance to move
+float distY;          // Y-axis distance to move
+float exponent = 1.05;   // Determines the curve
+float x = 0.0;        // Current x-coordinate
+float y = 0.0;        // Current y-coordinate
+float step = 0.01;    // Size of each step along the path
+float pct = 0.0;
+
+boolean isHigh=true;
+
+void rabbit(int x) {
+  pct += step;
+  if (pct < 1.0) {
+    distY = endY - beginY;
+    y = beginY + (pow(pct, exponent) * distY);
+    image(rabbit, 40+x, y, 80, 80);
+    textSize(15);
+    fill(255, 0, 0);
+    text("answer", 55+x, y+70);
+  } else {
+    if (isHigh) {
+      System.out.println("hi");
+      pct = 0.0;
+      beginY = y;
+      endY = 400;
+      distY = endY - beginY;
+      isHigh = false;
+      image(rabbit, 40+x, y, 80, 80);
+      textSize(15);
+      fill(255, 0, 0);
+      text("answer", 55+x, y+70);
+      delay(1000);
+    } else {
+      isHigh=true;
+      System.out.println("hi2");
+      pct = 0.0;
+      beginY = 400;
+      endY = 20.0;
+      distY = endY - beginY;
+      image(rabbit, 40+x, y, 80, 80);
+      textSize(15);
+      fill(255, 0, 0);
+      text("answer", 55+x, y+70);
+    }
+  }
 }
 
-void draw(){
-    background(#3B5DFF);
-    
-    image(tree, -30,0, 400,400);
-    
-    for(int i=0; i<4; i++){
-      rabbit(i*200);
-    }
-    
-  for(int i=0; i<=width; i+=140){
-    grass(i,65);
+void draw() {
+  background(#3B5DFF);
+  image(tree, -30, 0, 400, 400);
+
+  for (int i=0; i<4; i++) {
+    rabbit(i*200);
   }
-  
-  
-  
+
+  for (int i=0; i<=width; i+=140) {
+    grass(i, 65);
+  }
 }
