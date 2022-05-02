@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"></script>
+    <meta charset="utf-8" />
+
+  </head>
+  <body bgcolor='#AABB00'>
+    <p>반드시 index.html 파일을 확인하세요.....</p>
+    <p>원래 스크립트 언어의 코딩법을 보여드린 것입니다.</p>
+    <script>
+      let x = 200;
+      let y = 200;
+      let xdir = 1;
+
+      function setup() {
+        createCanvas(400, 300);
+      }
+
+      function draw() {
+        background(0);
+        ellipse(x,y,100,100);                
+        if(x<50 || x>width-50){
+          fill(random(255),random(255),random(255));
+          xdir*=-1;
+        }
+        x+=xdir*5;
+      }    
+    </script>
+    <p>
+    <button onclick="alert('p5.js를 공부하실 준비가 되었습니까?')"> 여기를 누르세요.! </button>
+    </p>
+  </body>
+</html>
